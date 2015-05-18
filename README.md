@@ -1,6 +1,6 @@
 # DjangoKeyhole
 
-DjangoKeyhole is a Django addon that adds an image crop widget to the standard ImageField. The actual cropping is done by the wonderful jquery cropping library [cropit](http://scottcheng.github.io/cropit/)
+DjangoKeyhole is a Django addon that adds an image crop widget to the standard ImageField. The actual cropping is done by the wonderful jquery cropping library [cropit](http://scottcheng.github.io/cropit/). Now the implementation destroys the original image but future versions might support non-destructive cropping.
 
   - quick and easy instalation
   - no external dependencyes
@@ -47,3 +47,5 @@ License
 MIT
 
 **Free Software, Hell Yeah!**
+
+
