@@ -13,7 +13,7 @@ setup(
     },
     include_package_data=True,
     license="MIT License, see LICENSE.txt",
-    description="Django form widget for croping uploaded images based on "
+    description="Django form widget for cropping uploaded images based on "
                 "a predefined size",
     long_description=open('README.txt').read()
 )
