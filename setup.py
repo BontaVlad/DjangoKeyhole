@@ -6,6 +6,7 @@ setup(
     version="0.1dev",
     author="Bonta Sergiu Vlad",
     author_email="bonta.vlad@gmail.com",
+    url="https://github.com/BontaVlad/DjangoKeyhole",
     packages=find_packages(),
     package_data={
         'static/crop_widget/js': ['*.js'],
@@ -15,5 +16,18 @@ setup(
     license="MIT License, see LICENSE.txt",
     description="Django form widget for cropping uploaded images based on "
                 "a predefined size",
-    long_description=open('README.txt').read()
+    long_description=open('README.txt').read(),
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Environment :: Web Environment',
+        'Framework :: Django',
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+    ],
 )
