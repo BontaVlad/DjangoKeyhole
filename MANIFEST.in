@@ -1,0 +1,2 @@
+recursive-include crop_widget/static/crop_widget/js *.js
+recursive-include crop_widget/static/crop_widget/css *.css

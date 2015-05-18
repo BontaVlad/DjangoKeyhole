@@ -1,0 +1,32 @@
+.cropit-image-preview {
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 7px;
+    cursor: move;
+}
+
+.slider-wrapper li {
+    margin: 7px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icon {
+    margin: 3px;
+    display: block;
+    background-image: url("photo.png");
+}
+
+.icon-small {
+    height: 16px;
+    width: 16px;
+    background-size: 16px 16px;
+}
+
+.icon-large {
+    height: 32px;
+    width: 32px;
+    background-size: 32px 32px;
+}
