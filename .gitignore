@@ -4,6 +4,7 @@
 *.bak
 *.swp
 *.egg-info*
+.ropeproject
 build/
 _build/
 dist/
