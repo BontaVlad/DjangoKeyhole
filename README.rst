@@ -30,7 +30,7 @@ How to use
 
 .. code:: python
 
-    from django.contrib import admin
+    from django import forms
 
     #import the widget
     from keyhole.widgets import CroppedImageWidget
