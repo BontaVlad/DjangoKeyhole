@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="DjangoKeyhole",
-    version="0.1dev",
+    version="0.1.dev0",
     author="Bonta Sergiu Vlad",
     author_email="bonta.vlad@gmail.com",
     url="https://github.com/BontaVlad/DjangoKeyhole",
@@ -16,7 +16,7 @@ setup(
     license="MIT License, see LICENSE.txt",
     description="Django form widget for cropping uploaded images based on "
                 "a predefined size",
-    long_description=open('README.txt').read(),
+    long_description=open('README.md').read(),
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
