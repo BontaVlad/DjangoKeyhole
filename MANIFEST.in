@@ -1,3 +1,5 @@
+include LICENSE.txt
+include README.rst
 recursive-include keyhole/static/keyhole/js *.js
 recursive-include keyhole/static/keyhole/css *.css
 recursive-include keyhole/static/keyhole/css *.png

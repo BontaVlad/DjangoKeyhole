@@ -16,7 +16,7 @@ setup(
     license="MIT License, see LICENSE.txt",
     description="Django form widget for cropping uploaded images based on "
                 "a predefined size",
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
