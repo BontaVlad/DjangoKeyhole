@@ -16,10 +16,10 @@ class CroppedImageWidget(forms.widgets.FileInput):
 
     class Media:
         css = {
-            'all': ('crop_widget/css/style.css', )
+            'all': ('keyhole/css/style.css', )
         }
-        js = ('crop_widget/js/jquery.cropit.js',
-              'crop_widget/js/main.js')
+        js = ('keyhole/js/jquery.cropit.js',
+              'keyhole/js/main.js')
 
     def __init__(self, height, width, attrs=None):
         super().__init__(attrs)
@@ -30,7 +30,7 @@ class CroppedImageWidget(forms.widgets.FileInput):
         # ugly but effective
         html = """
         <div class="image-editor" data-original-image="{image_url}"
-             data-field-id="id_{field_name}">
+             data-selector="id_{field_name}">
             <input type="file" class="cropit-image-input">
             <div class="cropit-image-preview"
                 style="width:{width}px;height:{height}px;"></div>
@@ -42,25 +42,36 @@ class CroppedImageWidget(forms.widgets.FileInput):
             <input type="hidden" name="{field_name}" id="id_{field_name}"
                 class="hidden-image-data" />
         </div>
-        <a href="#" class="grp-button crop">{button_label}</a>
+        <a href="#" id="id_{field_name}_btn"
+                    class="grp-button">{button_label}</a>
         """.format(
             image_url=value.url, height=self.height, width=self.width,
             field_name=name, button_label=_('Set croped image'))
         return mark_safe(html)
 
+    def _get_image_data(self, encoded_data):
+        splitted = encoded_data.split(',')
+        pattern = re.compile(':(\w+/\w+);')
+
+        m = pattern.findall(splitted[0]) if splitted else []
+        content_type = m[0] if m else None
+        image_bytes = splitted[1] if splitted else None
+
+        return content_type, image_bytes
+
     def value_from_datadict(self, data, files, name):
-        initial = data.get(name, None)
-        if initial:
-            base64_splitted = initial.split(',')
-            pattern = re.compile(':(\w+/\w+);')
-            content_type = pattern.findall(base64_splitted[0])[:1]
-            base64_stripped = base64_splitted[1]
-        if base64_stripped:
-            image_file = BytesIO(base64.b64decode(base64_stripped))
-        if image_file:
-            image = InMemoryUploadedFile(
-                image_file, field_name='file', name='photo',
-                content_type=content_type, size=sys.getsizeof(image_file),
-                charset=None)
-            return image
-        return initial
+        encoded_data = data.get(name, None)
+        bytestream = None
+
+        if encoded_data:
+            content_type, image_bytes = self._get_image_data(encoded_data)
+            if all([content_type, image_bytes]):
+                bytestream = BytesIO(base64.b64decode(image_bytes))
+                if bytestream:
+                    image = InMemoryUploadedFile(
+                        bytestream, field_name='file', name='photo',
+                        content_type=content_type,
+                        size=sys.getsizeof(bytestream),
+                        charset=None)
+                    return image
+        return encoded_data

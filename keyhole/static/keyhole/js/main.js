@@ -1,22 +1,29 @@
 (function($) {
-    $(function() {
-        var editor = $('.image-editor');
-        var field_id = editor.data('field-id');
+    function init_editor(e) {
+        var editor = $(e);
+        var selector = editor.data('selector');
         editor.cropit({
             imageState: {
                 src: editor.data('original-image')
             }
         });
 
-        $('.crop').click(function(e) {
+        $("body").on('click', '#' + selector + '_btn', function(e) {
             e.preventDefault();
             e.stopPropagation();
           // Move cropped image data to hidden input
           var imageData = editor.cropit('export');
-          $('#' + field_id).val(imageData);
-
+          $('#' + selector).val(imageData);
           return false;
         });
-      });
+    }
+
+    $(document).ready(function() {
+        var editors = $('.image-editor');
+        $.each(editors, function(index, value) {
+            init_editor(value);
+        });
+    });
+
 })(django.jQuery);
 
