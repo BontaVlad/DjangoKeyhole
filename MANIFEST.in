@@ -1,2 +1,3 @@
-recursive-include crop_widget/static/crop_widget/js *.js
-recursive-include crop_widget/static/crop_widget/css *.css
+recursive-include keyhole/static/keyhole/js *.js
+recursive-include keyhole/static/keyhole/css *.css
+recursive-include keyhole/static/keyhole/css *.png
