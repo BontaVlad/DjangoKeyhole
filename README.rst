@@ -17,7 +17,7 @@ Installation
 
     $ pip install DjangoKeyhole
 
-Add ``keyhole`` to youâre ``INSTALLED_APPS`` in ``settings.py``
+Add ``keyhole`` to you're ``INSTALLED_APPS`` in ``settings.py``
 
 Last but not least
 
@@ -39,7 +39,7 @@ How to use
         # width and height are in px
         foo_image = forms.ImageField(widget=CroppedImageWidget(width=160, height=160))
 
-Todoâs
+Todo's
 ~~~~~~
 
 -  Write Tests
