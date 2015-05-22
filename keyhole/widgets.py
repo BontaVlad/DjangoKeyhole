@@ -45,8 +45,9 @@ class CroppedImageWidget(forms.widgets.FileInput):
         <a href="#" id="id_{field_name}_btn"
                     class="grp-button">{button_label}</a>
         """.format(
-            image_url=value.url, height=self.height, width=self.width,
-            field_name=name, button_label=_('Set croped image'))
+            image_url=getattr(value, 'url', None), height=self.height,
+            width=self.width, field_name=name,
+            button_label=_('Set croped image'))
         return mark_safe(html)
 
     def _get_image_data(self, encoded_data):
