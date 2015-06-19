@@ -13,12 +13,12 @@
         function Zoomer() {}
         Zoomer.prototype.setup = function(imageSize, previewSize, exportZoom, options) {
             var heightRatio, widthRatio;
-            if (exportZoom == null) {
+            if (exportZoom === null) {
                 exportZoom = 1;
             }
             widthRatio = previewSize.w / imageSize.w;
             heightRatio = previewSize.h / imageSize.h;
-            if ((options != null ? options.minZoom : void 0) === "fit") {
+            if ((options !== null ? options.minZoom : void 0) === "fit") {
                 this.minZoom = widthRatio < heightRatio ? widthRatio : heightRatio;
             } else {
                 this.minZoom = widthRatio < heightRatio ? heightRatio : widthRatio;
@@ -169,7 +169,7 @@
             this.moveContinue = false;
             this.zoomer = new Zoomer();
             if (this.options.allowDragNDrop) {
-                jQuery.event.props.push("dataTransfer");
+                $.event.props.push("dataTransfer");
             }
             this.bindListeners();
             this.$zoomSlider.val(this.initialZoomSliderPos);
