@@ -22,7 +22,7 @@ class CroppedImageWidget(forms.widgets.FileInput):
               'keyhole/js/main.js')
 
     def __init__(self, height, width, attrs=None):
-        super().__init__(attrs)
+        super(CroppedImageWidget, self).__init__(attrs)
         self.height = height
         self.width = width
 
