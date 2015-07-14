@@ -28,6 +28,7 @@ class CroppedImageWidget(forms.widgets.FileInput):
 
     def render(self, name, value, attrs=None):
         # ugly but effective
+        image_url = value.url if value else ""
         html = """
         <div class="image-editor" data-original-image="{image_url}"
              data-selector="id_{field_name}">
@@ -45,7 +46,7 @@ class CroppedImageWidget(forms.widgets.FileInput):
         <a href="#" id="id_{field_name}_btn"
                     class="grp-button">{button_label}</a>
         """.format(
-            image_url=getattr(value, 'url', None), height=self.height,
+            image_url=image_url, height=self.height,
             width=self.width, field_name=name,
             button_label=_('Set croped image'))
         return mark_safe(html)
