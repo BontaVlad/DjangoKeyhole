@@ -28,10 +28,13 @@ class CroppedImageWidget(forms.widgets.FileInput):
 
     def render(self, name, value, attrs=None):
         # ugly but effective
+        image_url = None
         try:
             image_url = value.url
         except ValueError:
-            image_url = None
+            # this means that ImageField is empty usually beacuse it is
+            # blank=True in the model
+            pass
         html = """
         <div class="image-editor" data-original-image="{image_url}"
              data-selector="id_{field_name}">
@@ -46,12 +49,9 @@ class CroppedImageWidget(forms.widgets.FileInput):
             <input type="hidden" name="{field_name}" id="id_{field_name}"
                 class="hidden-image-data" />
         </div>
-        <a href="#" id="id_{field_name}_btn"
-                    class="grp-button">{button_label}</a>
         """.format(
             image_url=image_url, height=self.height,
-            width=self.width, field_name=name,
-            button_label=_('Set croped image'))
+            width=self.width, field_name=name)
         return mark_safe(html)
 
     def _get_image_data(self, encoded_data):
