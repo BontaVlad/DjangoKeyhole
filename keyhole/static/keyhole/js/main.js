@@ -8,13 +8,10 @@
             }
         });
 
-        $("body").on('click', '#' + selector + '_btn', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-          // Move cropped image data to hidden input
-          var imageData = editor.cropit('export');
-          $('#' + selector).val(imageData);
-          return false;
+        $("form[class*='form'").submit(function( event ) {
+            // Move cropped image data to hidden input
+            var imageData = editor.cropit('export');
+            $('#' + selector).val(imageData);
         });
     }
 
@@ -26,4 +23,3 @@
     });
 
 })(django.jQuery);
-
