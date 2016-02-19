@@ -28,7 +28,10 @@ class CroppedImageWidget(forms.widgets.FileInput):
 
     def render(self, name, value, attrs=None):
         # ugly but effective
-        image_url = value.url if value else ""
+        try:
+            image_url = value.url
+        except ValueError:
+            image_url = None
         html = """
         <div class="image-editor" data-original-image="{image_url}"
              data-selector="id_{field_name}">
