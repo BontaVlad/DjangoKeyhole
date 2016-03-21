@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="DjangoKeyhole",
-    version="0.8.dev0",
+    version="0.81.dev0",
     author="Bonta Sergiu Vlad",
     author_email="bonta.vlad@gmail.com",
     url="https://github.com/BontaVlad/DjangoKeyhole",
