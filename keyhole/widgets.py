@@ -6,7 +6,6 @@ try:
 except ImportError:
     from cStringIO import StringIO as BytesIO
 
-from django.utils.translation import ugettext as _
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.safestring import mark_safe
 from django import forms
@@ -26,15 +25,30 @@ class CroppedImageWidget(forms.widgets.FileInput):
         self.height = height
         self.width = width
 
-    def render(self, name, value, attrs=None):
-        # ugly but effective
-        image_url = None
+    def _get_image_data(self, encoded_data):
+        splitted = encoded_data.split(',')
+        pattern = re.compile(':(\w+/\w+);')
+
+        m = pattern.findall(splitted[0]) if splitted else []
+        content_type = m[0] if m else None
+        image_bytes = splitted[1] if splitted else None
+
+        return content_type, image_bytes
+
+    def _get_url(self, value, default=''):
+        # must be a better way to handle all the cases
+        if not value:
+            return default
         try:
-            image_url = value.url
+            # could be ImMemoryFile, so we check for url dynamically
+            image_url = getattr(value, 'url', '')
         except ValueError:
-            # this means that ImageField is empty usually beacuse it is
+            # this means that ImageField is empty usually because it is
             # blank=True in the model
             pass
+        return image_url or default
+
+    def render(self, name, value, attrs=None):
         html = """
         <div class="image-editor" data-original-image="{image_url}"
              data-selector="id_{field_name}">
@@ -50,19 +64,9 @@ class CroppedImageWidget(forms.widgets.FileInput):
                 class="hidden-image-data" />
         </div>
         """.format(
-            image_url=image_url, height=self.height,
+            image_url=self._get_url(value), height=self.height,
             width=self.width, field_name=name)
         return mark_safe(html)
-
-    def _get_image_data(self, encoded_data):
-        splitted = encoded_data.split(',')
-        pattern = re.compile(':(\w+/\w+);')
-
-        m = pattern.findall(splitted[0]) if splitted else []
-        content_type = m[0] if m else None
-        image_bytes = splitted[1] if splitted else None
-
-        return content_type, image_bytes
 
     def value_from_datadict(self, data, files, name):
         encoded_data = data.get(name, None)
